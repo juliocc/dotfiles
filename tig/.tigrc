@@ -1,0 +1,2 @@
+set line-graphics = utf-8
+set main-view = line-number:no,interval=5 id:no,color=no date:relative-compact,local=no,format= author:full commit-title:yes,graph=v2,refs=yes

@@ -75,7 +75,6 @@ HIST_STAMPS="yyyy-mm-dd"
 # Don't warn me about insecure completions.
 ZSH_DISABLE_COMPFIX="true"
 
-
 FPATH=$HOME/homebrew/share/zsh/site-functions:$FPATH
 
 # fzf todo
@@ -130,6 +129,7 @@ plugins=(
     #per-directory-history
     #zsh_reload
     direnv
+    iterm2
     zsh-syntax-highlighting
     history-substring-search
 )
