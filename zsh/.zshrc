@@ -8,9 +8,10 @@ fi
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+path=($HOME/bin $HOME/homebrew/bin $HOME/google-cloud-sdk/bin $path)
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -20,7 +21,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -41,7 +42,7 @@ DISABLE_AUTO_UPDATE="true"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -77,9 +78,6 @@ ZSH_DISABLE_COMPFIX="true"
 
 FPATH=$HOME/homebrew/share/zsh/site-functions:$FPATH
 
-# fzf todo
-# move this to custom file
-# enable completion with tab
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500' --bind '?:toggle-preview'"
@@ -95,20 +93,22 @@ _fzf_compgen_dir() {
 }
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git python virtualenv colored-man-pages
-    gitignore pip
+    colored-man-pages
+    python virtualenv pip
+    git
+    gitignore
+    #gitfast
     git-extra-commands
-    #adb
+    git-extras
     brew osx emacs
     httpie copybuffer copydir
     copyfile man colorize
     #autojump
-    #bgnotify # too slow
     dirpersist
     #npm history
     virtualenvwrapper
@@ -116,17 +116,15 @@ plugins=(
     terraform
     kubectl
     ripgrep fd
-    # kube-ps1 # not used for now
+    grc
     sudo
     man
-    #zsh-gcloud-prompt
     # helm
     fzf
     # last-working-dir
     # command-not-found # too slow
     # zhooks # just for debugging
     wd
-    #per-directory-history
     #zsh_reload
     direnv
     iterm2

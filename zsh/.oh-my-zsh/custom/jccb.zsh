@@ -44,6 +44,8 @@ alias tryepar='env_parallel --dry-run'
 alias par='parallel'
 alias trypar='parallel --dry-run'
 GECEPE=529325294915
+TEGECEPE=794194537730
+TEORG=571649421547
 JCCBBILLING=015E9E-0F5C59-2487B7
 alias gc='gcloud'
 alias gce='gc compute'
@@ -73,7 +75,7 @@ alias dv='dirs -v | head -20'
 # interactive comments
 #################################################################
 setopt INTERACTIVE_COMMENTS
-bindkey '^[#' pound-insert
+bindkey '^X;' pound-insert
 
 
 #################################################################
