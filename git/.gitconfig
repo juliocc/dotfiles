@@ -1,0 +1,46 @@
+[user]
+	name = Julio Castillo
+	email = jccb@google.com
+[core]
+	ipv4 = 1
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[credential "https://source.developers.google.com"]
+	helper = gcloud.sh
+[help]
+	autocorrect = 10
+[pull]
+	ff = only
+[alias]
+	co = checkout
+	st = status
+[rerere]
+	enabled = true
+[diff]
+	renames = true
+	mnemonicPrefix = true
+	colorMoved = default
+[grep]
+  lineNumber = true
+[log]
+  # Use abbrev SHAs whenever possible/relevant instead of full 40 chars
+  abbrevCommit = true
+[delta]
+	features = decorations line-numbers
+	whitespace-error-style = 22 reverse
+	syntax-theme = Monokai Extended Bright
+[delta "decorations"]
+	commit-decoration-style = bold box ul
+	file-style = bold yellow box ul
+[delta "line-numbers"]
+	line-numbers = true
+	line-numbers-minus-style = "#555555"
+	line-numbers-zero-style = "#333333"
+	line-numbers-plus-style = "#555555"
+	line-numbers-left-style = blue
+	line-numbers-right-style = blue
+[merge]
+	defaultToUpstream = true
+[branch]
+	autosetupmerge = always
