@@ -1,0 +1,5 @@
+#! /bin/sh
+host="$1"
+shift
+#echo $host
+exec gcloud compute ssh --tunnel-through-iap "$host" -- "$@"

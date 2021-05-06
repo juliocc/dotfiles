@@ -43,16 +43,14 @@ alias epar='env_parallel'
 alias tryepar='env_parallel --dry-run'
 alias par='parallel'
 alias trypar='parallel --dry-run'
-GECEPE=529325294915
-TEGECEPE=794194537730
-TEORG=571649421547
-JCCBBILLING=015E9E-0F5C59-2487B7
 alias gc='gcloud'
 alias gce='gc compute'
 alias gcei='gc compute instances'
 alias gcssh='gce ssh'
 alias gcsshiap="gcssh --tunnel-through-iap"
 alias tf='terraform'
+alias tf12='terraform-0.12.30'
+alias tf13='terraform-0.13.6'
 alias greauth="gcloud organizations list"
 alias gke='gcloud container'
 alias gkecred='gke clusters get-credentials'
@@ -62,6 +60,7 @@ alias tfa='tf apply'
 alias tfar='tf apply -refresh=false'
 alias tfi='tf init'
 alias tfiu='tf init -upgrade=true'
+alias kx=kubectx
 
 # alias dud='gdu -d 1 -h'
 # alias duf='gdu -sh *'

@@ -1,0 +1,6 @@
+#! /bin/sh
+# rsync -avzPhe 'gcprsynciap' ./source/ app-instance:~/dest/
+echo args "$@"
+host="$1"
+shift
+exec gcloud compute ssh "$host" -- "$@"

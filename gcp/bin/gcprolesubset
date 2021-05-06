@@ -1,0 +1,23 @@
+#!/bin/bash
+set -euo pipefail
+#set -x
+
+usage() {
+    cat <<EOF
+Usage: $(basename "${BASH_SOURCE[0]}") ROLE_A ROLE_B
+
+Prints whether ROLE_A is subseteq ROLE_B and shows permissions in ROLE_A that are not in ROLE_B
+EOF
+  exit
+}
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+   usage;
+fi
+
+ROLEA=$1
+ROLEB=${2:-roles/owner}
+
+python3 -c "import sys; a = set(open(sys.argv[1]).readlines()); b = set(open(sys.argv[2]).readlines()); diff = sorted(x.strip() for x in a-b); print(f'{a<=b=}'); print(f'a-b={diff}')" \
+  <(gcloud iam roles describe "$ROLEA" --flatten="includedPermissions" --format="value(includedPermissions)") \
+  <(gcloud iam roles describe "$ROLEB" --flatten="includedPermissions" --format="value(includedPermissions)")
