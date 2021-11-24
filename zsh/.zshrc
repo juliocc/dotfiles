@@ -92,6 +92,10 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
+export NVM_HOMEBREW=$HOME/homebrew/opt/nvm/
+export NVM_LAZY=1
+
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -100,12 +104,12 @@ _fzf_compgen_dir() {
 plugins=(
     colored-man-pages
     python virtualenv pip
-    git
+    # git # I don't use any of these aliases
     gitignore
     #gitfast
     git-extra-commands
     git-extras
-    brew osx emacs
+    brew macos emacs
     httpie copybuffer copydir
     copyfile man colorize
     #autojump
@@ -126,6 +130,7 @@ plugins=(
     # zhooks # just for debugging
     wd
     #zsh_reload
+    nvm
     direnv
     iterm2
     zsh-syntax-highlighting

@@ -15,6 +15,7 @@
 [alias]
 	co = checkout
 	st = status
+	pra = pull --rebase --autostash -v
 [rerere]
 	enabled = true
 [diff]
@@ -22,10 +23,10 @@
 	mnemonicPrefix = true
 	colorMoved = default
 [grep]
-  lineNumber = true
+	lineNumber = true
 [log]
-  # Use abbrev SHAs whenever possible/relevant instead of full 40 chars
-  abbrevCommit = true
+	# Use abbrev SHAs whenever possible/relevant instead of full 40 chars
+	abbrevCommit = true
 [delta]
 	features = decorations line-numbers
 	whitespace-error-style = 22 reverse

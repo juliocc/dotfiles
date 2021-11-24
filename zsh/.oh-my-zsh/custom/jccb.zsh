@@ -3,8 +3,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 #################################################################
 # History Setup
 #################################################################
-HISTSIZE=2000
-SAVEHIST=2000
+HISTSIZE=5000
+SAVEHIST=5000
 
 setopt HIST_FCNTL_LOCK
 #setopt HIST_IGNORE_ALL_DUPS
@@ -61,6 +61,9 @@ alias tfar='tf apply -refresh=false'
 alias tfi='tf init'
 alias tfiu='tf init -upgrade=true'
 alias kx=kubectx
+alias gwhereis='gcloud help --'
+alias gadc='gcloud auth application-default login'
+alias gadcu='gcloud auth login --update-adc $(gcloud config get-value core/account)'
 
 # alias dud='gdu -d 1 -h'
 # alias duf='gdu -sh *'

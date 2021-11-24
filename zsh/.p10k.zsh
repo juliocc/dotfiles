@@ -1412,7 +1412,7 @@
   # Tip: Remove the next line to always show gcloud.
   # typeset -g POWERLEVEL9K_GCLOUD_SHOW_ON_COMMAND='gcloud|gcs'
   # Google cloud color.
-  typeset -g POWERLEVEL9K_GCLOUD_FOREGROUND=7
+  typeset -g POWERLEVEL9K_GCLOUD_FOREGROUND=15
   typeset -g POWERLEVEL9K_GCLOUD_BACKGROUND=4
 
   # Google cloud format. Change the value of POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION and/or
@@ -1438,8 +1438,8 @@
   # and COMPLETE. You can also hide gcloud in state PARTIAL by setting
   # POWERLEVEL9K_GCLOUD_PARTIAL_VISUAL_IDENTIFIER_EXPANSION and
   # POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION to empty.
-  typeset -g POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_ID//\%/%%}'
-  typeset -g POWERLEVEL9K_GCLOUD_COMPLETE_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_ID//\%/%%}'
+  typeset -g POWERLEVEL9K_GCLOUD_PARTIAL_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_ID//\%/%%}/${P9K_GCLOUD_ACCOUNT}/${P9K_GCLOUD_CONFIGURATION}'
+  typeset -g POWERLEVEL9K_GCLOUD_COMPLETE_CONTENT_EXPANSION='${P9K_GCLOUD_PROJECT_ID//\%/%%}/${P9K_GCLOUD_ACCOUNT}/${P9K_GCLOUD_CONFIGURATION}'
 
   # Send a request to Google (by means of `gcloud projects describe ...`) to obtain project name
   # this often. Negative value disables periodic polling. In this mode project name is retrieved

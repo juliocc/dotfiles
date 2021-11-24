@@ -1,0 +1,8 @@
+Google*Drive*File*Stream/
+Library/
+google-cloud-sdk/
+.npm/
+.terraform.d/
+Downloads/Visual\ Studio\ Code.app/
+.pulumi/
+.vscode/
