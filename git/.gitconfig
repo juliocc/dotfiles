@@ -16,6 +16,8 @@
 	co = checkout
 	st = status
 	pra = pull --rebase --autostash -v
+	#push-for-review = push origin HEAD:refs/for/master
+	review = "!f() { git push origin HEAD:refs/for/${1:-master}; }; f"
 [rerere]
 	enabled = true
 [diff]
@@ -31,6 +33,7 @@
 	features = decorations line-numbers
 	whitespace-error-style = 22 reverse
 	syntax-theme = Monokai Extended Bright
+	navigate = true
 [delta "decorations"]
 	commit-decoration-style = bold box ul
 	file-style = bold yellow box ul
@@ -41,7 +44,10 @@
 	line-numbers-plus-style = "#555555"
 	line-numbers-left-style = blue
 	line-numbers-right-style = blue
+[delta "magit-delta"]
+	line-numbers = false
 [merge]
 	defaultToUpstream = true
+	conflictstyle = diff3
 [branch]
 	autosetupmerge = always
