@@ -15,7 +15,8 @@
 [alias]
 	co = checkout
 	st = status
-	pra = pull --rebase --autostash -v
+	pra = pull --rebase --autostash
+	pff = pull --ff-only --autostash
 	#push-for-review = push origin HEAD:refs/for/master
 	review = "!f() { git push origin HEAD:refs/for/${1:-master}; }; f"
 [rerere]
@@ -51,3 +52,5 @@
 	conflictstyle = diff3
 [branch]
 	autosetupmerge = always
+[github]
+	user = juliocc
