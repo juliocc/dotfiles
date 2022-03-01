@@ -106,15 +106,16 @@ plugins=(
     python virtualenv pip
     # git # I don't use any of these aliases
     gitignore
-    #gitfast
+    # gitfast
     git-extra-commands
     git-extras
-    brew macos emacs
-    httpie copybuffer copydir
+    brew macos
+    httpie
+    copybuffer copydir
     copyfile man colorize
-    #autojump
+    # autojump
     dirpersist
-    #npm history
+    # npm history
     virtualenvwrapper
     zsh-autosuggestions
     terraform
@@ -129,13 +130,19 @@ plugins=(
     # command-not-found # too slow
     # zhooks # just for debugging
     wd
-    #zsh_reload
+    # zsh_reload
     nvm
     direnv
     iterm2
     zsh-syntax-highlighting
     history-substring-search
 )
+
+if [[ "$INSIDE_EMACS" = '' ]]; then
+    plugins+=(emacs)
+fi
+
+
 # asdf, fasd, autojump, compleat, z, jump, scd, fastfile, fzf
 
 source $ZSH/oh-my-zsh.sh
