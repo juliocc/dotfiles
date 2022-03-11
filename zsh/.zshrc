@@ -82,7 +82,7 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500' --bind '?:toggle-preview'"
 export FZF_ALT_C_COMMAND="fd --type d"
-export FZF_BASE=/Users/jccb/homebrew/opt/fzf
+export FZF_BASE=$HOME/homebrew/opt/fzf
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
@@ -111,7 +111,7 @@ plugins=(
     git-extras
     brew macos
     httpie
-    copybuffer copydir
+    copybuffer copypath 
     copyfile man colorize
     # autojump
     dirpersist
@@ -126,6 +126,7 @@ plugins=(
     man
     # helm
     fzf
+    jccb-fasd
     # last-working-dir
     # command-not-found # too slow
     # zhooks # just for debugging
@@ -143,7 +144,7 @@ if [[ "$INSIDE_EMACS" = '' ]]; then
 fi
 
 
-# asdf, fasd, autojump, compleat, z, jump, scd, fastfile, fzf
+# asdf,  autojump, compleat, z, jump, scd, fastfile
 
 source $ZSH/oh-my-zsh.sh
 
