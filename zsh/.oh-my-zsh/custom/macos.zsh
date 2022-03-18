@@ -4,3 +4,7 @@ if [ "$SHORT_HOST" = "jccb-macbookpro" ] ; then
     source $HOME/google-cloud-sdk/completion.zsh.inc
     #. `which env_parallel.zsh`
 fi
+
+if [ "$SHORT_HOST" = "jccb-macbookpro3" ] ; then
+    source $HOME/google-cloud-sdk/completion.zsh.inc
+fi
