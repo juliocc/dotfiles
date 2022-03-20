@@ -7,6 +7,7 @@ fi
 
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
+
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 path=($HOME/bin $HOME/homebrew/bin $HOME/google-cloud-sdk/bin $path)
 
@@ -76,13 +77,17 @@ HIST_STAMPS="yyyy-mm-dd"
 # Don't warn me about insecure completions.
 ZSH_DISABLE_COMPFIX="true"
 
-FPATH=$HOME/homebrew/share/zsh/site-functions:$FPATH
-
-export FZF_DEFAULT_COMMAND='fd --type f'
+if [[ "$OSTYPE" =~ "^darwin.*" ]] ; then
+    FPATH=$HOME/homebrew/share/zsh/site-functions:$FPATH
+    export FZF_BASE=$HOME/homebrew/opt/fzf
+    export FZF_DEFAULT_COMMAND='fd --type f'
+    export FZF_ALT_C_COMMAND="fd --type d"
+elif [[ "$OSTYPE" =~ "^linux.*" ]]; then
+    export FZF_DEFAULT_COMMAND='fdfind --type f'
+    export FZF_ALT_C_COMMAND="fdfind --type d"
+fi
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500' --bind '?:toggle-preview'"
-export FZF_ALT_C_COMMAND="fd --type d"
-export FZF_BASE=$HOME/homebrew/opt/fzf
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
@@ -92,9 +97,8 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-export NVM_HOMEBREW=$HOME/homebrew/opt/nvm/
-export NVM_LAZY=1
-
+# export NVM_HOMEBREW=$HOME/homebrew/opt/nvm/
+# export NVM_LAZY=1
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
