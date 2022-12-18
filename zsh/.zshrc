@@ -80,11 +80,11 @@ ZSH_DISABLE_COMPFIX="true"
 if [[ "$OSTYPE" =~ "^darwin.*" ]] ; then
     FPATH=$HOME/homebrew/share/zsh/site-functions:$FPATH
     export FZF_BASE=$HOME/homebrew/opt/fzf
-    export FZF_DEFAULT_COMMAND='fd --type f'
-    export FZF_ALT_C_COMMAND="fd --type d"
+    export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+    export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
 elif [[ "$OSTYPE" =~ "^linux.*" ]]; then
-    export FZF_DEFAULT_COMMAND='fdfind --type f'
-    export FZF_ALT_C_COMMAND="fdfind --type d"
+    export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix'
+    export FZF_ALT_C_COMMAND="fdfind --type d --strip-cwd-prefix"
 fi
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500' --bind '?:toggle-preview'"
@@ -107,30 +107,38 @@ _fzf_compgen_dir() {
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     colored-man-pages
-    python virtualenv pip
+    python 
+    # virtualenv  # not needed with p10k
+    pip
     # git # I don't use any of these aliases
     gitignore
+    thefuck
     # gitfast
     git-extra-commands
-    git-extras
+    #git-extras
+    git-escape-magic
+    gh
     brew macos
     httpie
+    safe-paste
     copybuffer copypath 
-    copyfile man colorize
+    copyfile man 
+    #colorize # use bat
     # autojump
     dirpersist
     # npm history
     virtualenvwrapper
     zsh-autosuggestions
     terraform
-    kubectl
+    # kubectl
     ripgrep fd
     grc
     sudo
     man
     # helm
     fzf
-    jccb-fasd
+    zoxide
+    # jccb-fasd
     # last-working-dir
     # command-not-found # too slow
     # zhooks # just for debugging
@@ -140,15 +148,14 @@ plugins=(
     direnv
     iterm2
     zsh-syntax-highlighting
-    history-substring-search
+    # history-substring-search
+    zsh-interactive-cd
+    dircycle
 )
 
 if [[ "$INSIDE_EMACS" = '' ]]; then
     plugins+=(emacs)
 fi
-
-
-# asdf,  autojump, compleat, z, jump, scd, fastfile
 
 source $ZSH/oh-my-zsh.sh
 
@@ -188,3 +195,5 @@ export LANG=en_US.UTF-8
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+

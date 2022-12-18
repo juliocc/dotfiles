@@ -46,7 +46,7 @@ alias trypar='parallel --dry-run'
 alias gc='gcloud'
 alias gce='gc compute'
 alias gcei='gc compute instances'
-alias gcssh='gce ssh'
+alias gcssh='gce ssh --ssh-key-expire-after=7d'
 alias gcsshiap="gcssh --tunnel-through-iap"
 alias tf='terraform'
 alias tf12='terraform-0.12.30'
