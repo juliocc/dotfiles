@@ -132,7 +132,7 @@ plugins=(
     terraform
     # kubectl
     ripgrep fd
-    grc
+    #grc
     sudo
     man
     # helm
@@ -142,7 +142,7 @@ plugins=(
     # last-working-dir
     # command-not-found # too slow
     # zhooks # just for debugging
-    wd
+    # wd
     # zsh_reload
     nvm
     direnv
