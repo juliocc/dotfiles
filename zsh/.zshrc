@@ -185,11 +185,11 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
-#     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
-#     setopt PROMPT_SUBST
-#     PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
-# fi
+if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+    && [[ -n ${EMACS_VTERM_PATH} ]] \
+    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+fi
 
 # zprof
 

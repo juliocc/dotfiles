@@ -49,7 +49,7 @@
 	line-numbers = false
 [merge]
 	defaultToUpstream = true
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 [branch]
 	autosetupmerge = always
 [github]
