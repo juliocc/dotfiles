@@ -3,8 +3,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 #################################################################
 # History Setup
 #################################################################
-HISTSIZE=5000
-SAVEHIST=5000
+HISTSIZE=50000
+SAVEHIST=50000
 
 setopt HIST_FCNTL_LOCK
 #setopt HIST_IGNORE_ALL_DUPS
@@ -64,6 +64,8 @@ alias kx=kubectx
 alias gwhereis='gcloud help --'
 alias gadc='gcloud auth application-default login'
 alias gadcu='gcloud auth login --update-adc $(gcloud config get-value core/account)'
+alias adcwhoami='curl -s "https://oauth2.googleapis.com/tokeninfo?access_token=$(gcloud auth application-default print-access-token)" | jq -r .email'
+alias gwhoami='curl -s "https://oauth2.googleapis.com/tokeninfo?access_token=$(gcloud auth print-access-token)" | jq -r .email'
 
 # alias dud='gdu -d 1 -h'
 # alias duf='gdu -sh *'
