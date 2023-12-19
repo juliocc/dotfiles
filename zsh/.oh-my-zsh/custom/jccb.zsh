@@ -5,6 +5,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 #################################################################
 HISTSIZE=50000
 SAVEHIST=50000
+DIRSTACKSIZE=100
 
 setopt HIST_FCNTL_LOCK
 #setopt HIST_IGNORE_ALL_DUPS
@@ -49,17 +50,20 @@ alias gcei='gc compute instances'
 alias gcssh='gce ssh --ssh-key-expire-after=7d'
 alias gcsshiap="gcssh --tunnel-through-iap"
 alias tf='terraform'
-alias tf12='terraform-0.12.30'
-alias tf13='terraform-0.13.6'
 alias greauth="gcloud organizations list"
 alias gke='gcloud container'
 alias gkecred='gke clusters get-credentials'
 alias gkec='gke clusters'
 alias kcompload='source <(kubectl completion zsh)'
+alias tf='terraform'
 alias tfa='tf apply'
 alias tfar='tf apply -refresh=false'
 alias tfi='tf init'
 alias tfiu='tf init -upgrade=true'
+alias tfp='tf plan'
+alias tfpr='tfp -refresh=false'
+alias tf12='terraform-0.12.30'
+alias tf13='terraform-0.13.6'
 alias kx=kubectx
 alias gwhereis='gcloud help --'
 alias gadc='gcloud auth application-default login'
@@ -73,7 +77,12 @@ alias gwhoami='curl -s "https://oauth2.googleapis.com/tokeninfo?access_token=$(g
 # alias ff='gfind . -type f -name'
 alias hgrep="fc -El 0 | grep"
 alias rehist='fc -RI' # reload history
-alias dv='dirs -v | head -20'
+#alias dv='dirs -v | head -20'
+#alias dv="cd -\$(dirs -v | fzf --with-nth 2 | awk '{print $1}')"
+function dv {
+  d=$(dirs -v | fzf --with-nth 2 | awk '{print $1}')
+  cd "-${d}"
+}
 
 #################################################################
 # interactive comments
@@ -87,13 +96,19 @@ bindkey '^X;' pound-insert
 #################################################################
 
 # open a dired window for the current directory
-dired() {
-    eeval -e "(dired \"$PWD\")"
-}
+# dired() {
+#     eeval -e "(dired \"$PWD\")"
+# }
 
-magit() {
-    eeval "(magit-status \"$PWD\")" > /dev/null
-}
+# magit() {
+#     eeval "(magit-status \"$PWD\")" > /dev/null
+# }
+
+#function e()      { $EMACS_PLUGIN_LAUNCHER --eval "(progn (select-frame-set-input-focus (selected-frame)) (find-file \"$1\"))"; }
+function ediff()  { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-input-focus (selected-frame)) (ediff-files \"$1\" \"$2\"))"; }
+function edired() { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-input-focus (selected-frame)) (dired \"$1\"))"; }
+function emagit() { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-input-focus (selected-frame)) (magit-status \"$1\"))"; }
+# function ekill()  { emacsclient --eval '(save-buffers-kill-emacs)'; }
 
 #################################################################
 # Misc

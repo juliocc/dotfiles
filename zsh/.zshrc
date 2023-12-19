@@ -108,6 +108,7 @@ _fzf_compgen_dir() {
 plugins=(
     colored-man-pages
     python 
+    pyenv
     # virtualenv  # not needed with p10k
     pip
     # git # I don't use any of these aliases
@@ -127,7 +128,7 @@ plugins=(
     # autojump
     dirpersist
     # npm history
-    virtualenvwrapper
+    # virtualenvwrapper
     zsh-autosuggestions
     terraform
     # kubectl
@@ -147,6 +148,7 @@ plugins=(
     nvm
     direnv
     iterm2
+    rbenv
     zsh-syntax-highlighting
     # history-substring-search
     # zsh-interactive-cd
