@@ -3,9 +3,9 @@
 	email = jccb@google.com
 [core]
 	ipv4 = 1
-	pager = delta
-[interactive]
-	diffFilter = delta --color-only
+	# pager = delta
+# [interactive]
+#	diffFilter = delta --color-only
 [credential "https://source.developers.google.com"]
 	helper = gcloud.sh
 [help]
