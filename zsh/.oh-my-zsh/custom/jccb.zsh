@@ -3,22 +3,64 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 #################################################################
 # History Setup
 #################################################################
-HISTSIZE=50000
-SAVEHIST=50000
+HISTSIZE=100000
+SAVEHIST=100000
 DIRSTACKSIZE=100
 
-setopt HIST_FCNTL_LOCK
-#setopt HIST_IGNORE_ALL_DUPS
-setopt EXTENDED_HISTORY
-setopt HIST_REDUCE_BLANKS
-#setopt HIST_SAVE_NO_DUPS
-setopt NO_SHARE_HISTORY
+setopt EXTENDED_HISTORY       # record timestamp of command in HISTFILE
+setopt HIST_EXPIRE_DUPS_FIRST # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt HIST_FCNTL_LOCK        # record timestamp
+setopt HIST_IGNORE_ALL_DUPS   # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_DUPS       # ignore duplicated commands history list
+setopt HIST_IGNORE_SPACE      # ignore commands that start with space
+setopt HIST_REDUCE_BLANKS     # Remove superfluous blanks from each command line being added to the history.
+setopt HIST_VERIFY            # show command with history expansion to user before running it
 setopt INC_APPEND_HISTORY
+setopt NO_SHARE_HISTORY
 unsetopt correct_all
 
+setopt MENU_COMPLETE
 
 # bindkey "^R" history-incremental-pattern-search-backward
 # bindkey "^S" history-incremental-pattern-search-forward
+
+#################################################################
+# fzf
+#################################################################
+
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+export FZF_CTRL_R_OPTS="
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --preview 'tree -C {}'"
+
+## fzf-tab specific
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
 #################################################################
 # Aliases
@@ -49,7 +91,6 @@ alias gce='gc compute'
 alias gcei='gc compute instances'
 alias gcssh='gce ssh --ssh-key-expire-after=7d'
 alias gcsshiap="gcssh --tunnel-through-iap"
-alias tf='terraform'
 alias greauth="gcloud organizations list"
 alias gke='gcloud container'
 alias gkecred='gke clusters get-credentials'
@@ -62,8 +103,6 @@ alias tfi='tf init'
 alias tfiu='tf init -upgrade=true'
 alias tfp='tf plan'
 alias tfpr='tfp -refresh=false'
-alias tf12='terraform-0.12.30'
-alias tf13='terraform-0.13.6'
 alias kx=kubectx
 alias gwhereis='gcloud help --'
 alias gadc='gcloud auth application-default login'
@@ -151,4 +190,33 @@ src() {
 
     # Use $SHELL if available; remove leading dash if login shell
     [[ -n "$SHELL" ]] && exec ${SHELL#-} || exec zsh
+}
+
+vterm_cmd() {
+    local vterm_elisp
+    vterm_elisp=""
+    while [ $# -gt 0 ]; do
+        vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
+        shift
+    done
+    vterm_printf "51;E$vterm_elisp"
+}
+
+vterm_printf() {
+    # update buffer title
+    print -Pn "\e]2;%2~\a"
+
+    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
+        # Tell tmux to pass the escape sequences through
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+
+vterm_prompt_end() {
+  vterm_printf "51;A$USER@$HOST:$PWD" >$TTY
 }

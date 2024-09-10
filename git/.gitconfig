@@ -25,6 +25,7 @@
 	renames = true
 	mnemonicPrefix = true
 	colorMoved = default
+	algorithm = histogram
 [grep]
 	lineNumber = true
 [log]
@@ -54,3 +55,6 @@
 	autosetupmerge = always
 [github]
 	user = juliocc
+[fetch]
+	prune = true
+	prunetags = true

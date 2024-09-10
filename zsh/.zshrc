@@ -33,14 +33,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -55,6 +54,9 @@ DISABLE_AUTO_TITLE="true"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -74,8 +76,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Don't warn me about insecure completions.
-ZSH_DISABLE_COMPFIX="true"
+zstyle :omz:plugins:iterm2 shell-integration yes
 
 if [[ "$OSTYPE" =~ "^darwin.*" ]] ; then
     FPATH=$HOME/homebrew/share/zsh/site-functions:$FPATH
@@ -87,18 +88,6 @@ elif [[ "$OSTYPE" =~ "^linux.*" ]]; then
     export FZF_ALT_C_COMMAND="fdfind --type d --strip-cwd-prefix"
 fi
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500' --bind '?:toggle-preview'"
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-
-# export NVM_HOMEBREW=$HOME/homebrew/opt/nvm/
-# export NVM_LAZY=1
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -106,53 +95,40 @@ _fzf_compgen_dir() {
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    aliases
     colored-man-pages
     python 
     pyenv
     # virtualenv  # not needed with p10k
     pip
-    # git # I don't use any of these aliases
     gitignore
-    thefuck
-    # gitfast
     git-extra-commands
     #git-extras
     git-escape-magic
     gh
-    brew macos
+    # brew
+    macos
     httpie
     safe-paste
-    copybuffer copypath 
-    copyfile man 
-    #colorize # use bat
-    # autojump
+    copybuffer
+    copypath
+    copyfile
+    man
     dirpersist
-    # npm history
-    # virtualenvwrapper
+    virtualenvwrapper
     zsh-autosuggestions
     terraform
-    # kubectl
-    ripgrep fd
-    #grc
     sudo
     man
-    # helm
     fzf
     zoxide
-    # jccb-fasd
-    # last-working-dir
-    # command-not-found # too slow
-    # zhooks # just for debugging
-    # wd
-    # zsh_reload
-    nvm
     direnv
     iterm2
     rbenv
+    dircycle
+    fzf-tab
     zsh-syntax-highlighting
     # history-substring-search
-    # zsh-interactive-cd
-    dircycle
 )
 
 if [[ "$INSIDE_EMACS" = '' ]]; then
@@ -192,10 +168,10 @@ export LANG=en_US.UTF-8
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-    && [[ -n ${EMACS_VTERM_PATH} ]] \
-    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
+    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+    autoload -U add-zsh-hook
+    add-zsh-hook precmd vterm_prompt_end
 fi
 
 
