@@ -1,3 +1,5 @@
+[column]
+	ui = auto
 [user]
 	name = Julio Castillo
 	email = jccb@google.com
@@ -10,7 +12,7 @@
 [credential "https://source.developers.google.com"]
 	helper = gcloud.sh
 [help]
-	autocorrect = 10
+	autocorrect = prompt
 [pull]
 	ff = only
 [alias]
@@ -27,6 +29,7 @@
 	highlightRecent = 237, 20 month ago, 238, 19 month ago, 239, 18 month ago, 240, 17 month ago, 241, 16 month ago, 242, 15 month ago, 243, 14 month ago, 244, 13 month ago, 245, 12 month ago, 246, 11 month ago, 247, 10 month ago, 248, 9 month ago, 249, 8 month ago, 250, 7 month ago, 251, 6 month ago, 252, 5 month ago, 253, 4 month ago, 254, 3 month ago, 231, 2 month ago, 230, 1 month ago, 229, 3 weeks ago, 228, 2 weeks ago, 227, 1 week ago, 226
 [rerere]
 	enabled = true
+	autoupdate = true
 [diff]
 	renames = true
 	mnemonicPrefix = true
@@ -59,6 +62,8 @@
 	conflictstyle = zdiff3
 [branch]
 	autosetupmerge = always
+	sort = -committerdate
+	pager = false
 [github]
 	user = juliocc
 [fetch]
@@ -70,3 +75,10 @@
 	allowedSignersFile = ~/.ssh/allowed_git_signers
 [blame]
 	coloring = highlightRecent
+[status]
+	showUntrackedFiles = yes
+[pager]
+	branch = false
+	tag = false
+[push]
+	autoSetupRemote = true
