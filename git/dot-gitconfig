@@ -83,3 +83,5 @@
 	tag = false
 [push]
 	autoSetupRemote = true
+[credential "https://*.*.sourcemanager.dev"]
+	helper = gcloud.sh
