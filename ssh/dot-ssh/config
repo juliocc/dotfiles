@@ -1,0 +1,25 @@
+# Host *.sourcemanager.dev
+#   ControlMaster no
+
+Host *
+  # Always use SSH2.
+  Protocol 2
+  Compression yes
+
+  # ssh will disconnect if it can't reach the server for 20 seconds
+  # (defaults are way too high)
+  ServerAliveInterval 10
+  ServerAliveCountMax 3
+  # ConnectTimeout 60
+  # ConnectionAttempts 2
+  CheckHostIP no
+  SendEnv -LC_* -LANG*
+
+  # Host *, !*.sourcemanager.dev
+
+  # Use a shared channel for all sessions to the same host,
+  # instead of always opening a new one. This leads to much
+  # quicker connection times
+  ControlMaster auto
+  ControlPath ~/.ssh/tmp/master-%C
+  ControlPersist 30s

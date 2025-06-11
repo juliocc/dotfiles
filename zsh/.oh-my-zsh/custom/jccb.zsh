@@ -106,6 +106,8 @@ alias tfia='tfi && tfa'
 alias tfiu='tf init -upgrade=true'
 alias tfp='tf plan'
 alias tfpr='tfp -refresh=false'
+alias tfyolo='tfi && tfa -auto-approve'
+alias tfyoloer='tfi && tfa -auto-approve -refresh=false'
 alias kx=kubectx
 alias gwhereis='gcloud help --'
 alias gadc='gcloud auth application-default login'
