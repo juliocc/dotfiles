@@ -4,5 +4,8 @@ if [ "$SHORT_HOST" = "jccb-macbookpro3" ] ; then
     source $HOME/google-cloud-sdk/completion.zsh.inc
 fi
 
+if [ "$SHORT_HOST" = "jccb-mac" ] ; then
+    source $HOME/google-cloud-sdk/completion.zsh.inc
+fi
 
 export PATH="$HOME/homebrew/opt/curl/bin:$PATH"
