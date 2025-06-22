@@ -3,7 +3,7 @@
 [user]
 	name = Julio Castillo
 	email = jccb@google.com
-	signingkey = /Users/jccb/.ssh/gnubby.pub
+	signingkey = ~/.ssh/gitsigningkey.pub
 [core]
 	ipv4 = 1
 	# pager = delta
