@@ -1,0 +1,27 @@
+
+zmodule input
+zmodule fzf
+zmodule run-help
+zmodule kiesman99/zim-zoxide
+
+if [[ -d /opt/homebrew/share/zsh ]] && [[ $(uname) == Darwin ]] ; then
+    zmodule /opt/homebrew/share/zsh/site-functions --fpath .
+fi
+zmodule zsh-users/zsh-completions --fpath src
+zmodule completion
+
+zmodule ohmyzsh/ohmyzsh --root plugins/colored-man-pages
+#zmodule ohmyzsh/ohmyzsh --root plugins/macos
+zmodule ohmyzsh/ohmyzsh --root plugins/emacs
+zmodule ohmyzsh/ohmyzsh --root plugins/safe-paste
+zmodule ohmyzsh/ohmyzsh --root plugins/copybuffer
+zmodule ohmyzsh/ohmyzsh --root plugins/copypath
+zmodule ohmyzsh/ohmyzsh --root plugins/copyfile
+zmodule ohmyzsh/ohmyzsh --root plugins/dirpersist
+
+zmodule Aloxaf/fzf-tab
+
+zmodule romkatv/powerlevel10k
+
+zmodule zsh-users/zsh-syntax-highlighting
+#zmodule zsh-users/zsh-autosuggestions
