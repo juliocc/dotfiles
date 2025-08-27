@@ -2,13 +2,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-ZIM_HOME=~/.zim
-ZIM_CONFIG_FILE=~/.zim/.zimrc
-
-HISTSIZE=100000
-SAVEHIST=100000
-DIRSTACKSIZE=100
-WORDCHARS=${WORDCHARS//[\/]}
+#########################################################################
 
 setopt EXTENDED_HISTORY       # record timestamp of command in HISTFILE
 setopt HIST_EXPIRE_DUPS_FIRST # delete duplicates first when HISTFILE size exceeds HISTSIZE
@@ -20,29 +14,46 @@ setopt HIST_REDUCE_BLANKS     # Remove superfluous blanks from each command line
 setopt HIST_VERIFY            # show command with history expansion to user before running it
 setopt INC_APPEND_HISTORY
 setopt NO_SHARE_HISTORY
-unsetopt correct_all
 setopt MENU_COMPLETE
+setopt INTERACTIVE_COMMENTS
+setopt NO_CLOBBER
+setopt EXTENDED_GLOB
+setopt AUTO_PUSHD
+setopt PUSHD_MINUS
+unsetopt CORRECT_ALL
 
+export LESS='-RX --mouse --quit-if-one-screen'
+export MANWIDTH=92
+
+HISTSIZE=100000
+SAVEHIST=100000
+DIRSTACKSIZE=100
+WORDCHARS=${WORDCHARS//[\/]}
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 
-if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
+#########################################################################
+
+ZIM_HOME=~/.zim
+ZIM_CONFIG_FILE=${ZIM_HOME}/.zimrc
+
+if [[ ! ${ZIM_HOME}/init.zsh -nt $ZIM_CONFIG_FILE ]]; then
   source ${ZIM_HOME}/zimfw.zsh init
 fi
-
 source ${ZIM_HOME}/init.zsh
 
+#########################################################################
 
-# if [[ "$OSTYPE" =~ "^darwin.*" ]] ; then
-#     FPATH=$HOME/homebrew/share/zsh/site-functions:$FPATH
-#     export FZF_BASE=$HOME/homebrew/opt/fzf
-#     export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
-#     export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
-# elif [[ "$OSTYPE" =~ "^linux.*" ]]; then
-#     export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix'
-#     export FZF_ALT_C_COMMAND="fdfind --type d --strip-cwd-prefix"
-# fi
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+if [[ "$OSTYPE" =~ "^darwin.*" ]] ; then
+#    export FZF_BASE=$HOME/homebrew/opt/fzf
+    export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+    export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
+elif [[ "$OSTYPE" =~ "^linux.*" ]]; then
+    export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix'
+    export FZF_ALT_C_COMMAND="fdfind --type d --strip-cwd-prefix"
+fi
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
@@ -111,7 +122,7 @@ alias tmpcd='cd $(mktemp -d ~/tmp/tmp.XX)'
 alias hgrep="fc -El 0 | grep"
 alias rehist='fc -RI' # reload history
 function dv {
-  d=$(dirs -v | fzf --with-nth 2 | awk '{print $1}')
+  d=$(dirs -v | fzf | awk '{print $1}')
   cd "-${d}"
 }
 
@@ -142,11 +153,11 @@ alias dired="_emacs_action dired-jump"
 if [ "$SHORT_HOST" = "jccb-macbookpro3" ] ; then
     export CLOUDSDK_PYTHON="/Users/jccb/bin/gcloudvenv/bin/python"
     export CLOUDSDK_PYTHON_SITEPACKAGES=1
-    source $HOME/google-cloud-sdk/completion.zsh.inc
+    # source $HOME/google-cloud-sdk/completion.zsh.inc
 fi
 
 if [ "$SHORT_HOST" = "jccb-mac" ] ; then
-    source $HOME/google-cloud-sdk/completion.zsh.inc
+    # source $HOME/google-cloud-sdk/completion.zsh.inc
 fi
 
 source ~/.p10k.zsh

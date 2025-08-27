@@ -1,5 +1,6 @@
 
 zmodule input
+zmodule utility
 zmodule fzf
 zmodule run-help
 zmodule kiesman99/zim-zoxide
@@ -22,6 +23,7 @@ zmodule ohmyzsh/ohmyzsh --root plugins/dirpersist
 zmodule Aloxaf/fzf-tab
 
 zmodule romkatv/powerlevel10k
+#zmodule joke/zim-starship
 
 zmodule zsh-users/zsh-syntax-highlighting
 #zmodule zsh-users/zsh-autosuggestions
