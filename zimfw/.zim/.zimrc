@@ -10,6 +10,9 @@ if [[ -d /opt/homebrew/share/zsh ]] && [[ $(uname) == Darwin ]] ; then
 fi
 zmodule zsh-users/zsh-completions --fpath src
 zmodule completion
+if [[ -d "$HOME/google-cloud-sdk" ]]; then
+   zmodule $HOME/google-cloud-sdk --source completion.zsh.inc
+fi
 
 zmodule ohmyzsh/ohmyzsh --root plugins/colored-man-pages
 #zmodule ohmyzsh/ohmyzsh --root plugins/macos

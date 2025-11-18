@@ -131,6 +131,8 @@ function ediff()  { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-i
 function edired() { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-input-focus (selected-frame)) (dired \"$1\"))"; }
 function emagit() { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-input-focus (selected-frame)) (magit-status \"$1\"))"; }
 # function ekill()  { emacsclient --eval '(save-buffers-kill-emacs)'; }
+alias magit=emagit
+alias dired=edired
 
 function mkcd () { mkdir -p -- "$1" && cd -P -- "$1" }
 
@@ -141,23 +143,9 @@ bindkey -M emacs '^N' history-substring-search-down
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_HISTORY_IGNORE=30
 
-function _emacs_action() {
- emacsclient -u --eval "($1)"
- (( $+commands[osascript] )) && osascript -e "tell application \"Emacs\" to activate"
- (( $+commands[swaymsg] )) && swaymsg '[app_id="emacs"] focus'
-}
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-alias magit="_emacs_action magit"
-alias dired="_emacs_action dired-jump"
-
-if [ "$SHORT_HOST" = "jccb-macbookpro3" ] ; then
-    export CLOUDSDK_PYTHON="/Users/jccb/bin/gcloudvenv/bin/python"
-    export CLOUDSDK_PYTHON_SITEPACKAGES=1
-    # source $HOME/google-cloud-sdk/completion.zsh.inc
-fi
-
-if [ "$SHORT_HOST" = "jccb-mac" ] ; then
-    # source $HOME/google-cloud-sdk/completion.zsh.inc
-fi
 
 source ~/.p10k.zsh
