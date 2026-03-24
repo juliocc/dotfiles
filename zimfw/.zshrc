@@ -44,35 +44,37 @@ source ${ZIM_HOME}/init.zsh
 
 #########################################################################
 
+autoload -U +X bashcompinit && bashcompinit
 
-if [[ "$OSTYPE" =~ "^darwin.*" ]] ; then
-#    export FZF_BASE=$HOME/homebrew/opt/fzf
-    export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
-    export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
-elif [[ "$OSTYPE" =~ "^linux.*" ]]; then
-    export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix'
-    export FZF_ALT_C_COMMAND="fdfind --type d --strip-cwd-prefix"
-fi
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# if [[ "$OSTYPE" =~ "^darwin.*" ]] ; then
+# #    export FZF_BASE=$HOME/homebrew/opt/fzf
+#     export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+#     export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
+# elif [[ "$OSTYPE" =~ "^linux.*" ]]; then
+#     export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix'
+#     export FZF_ALT_C_COMMAND="fdfind --type d --strip-cwd-prefix"
+# fi
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-export FZF_CTRL_T_OPTS="
-  --walker-skip .git,node_modules,target
-  --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-export FZF_CTRL_R_OPTS="
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --color header:italic
-  --header 'Press CTRL-Y to copy command into clipboard'"
-export FZF_ALT_C_OPTS="
-  --walker-skip .git,node_modules,target
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'
-  --preview 'tree -C {}'"
+# _fzf_compgen_path() {
+#   fd --hidden --follow --exclude ".git" . "$1"
+# }
+# _fzf_compgen_dir() {
+#   fd --type d --hidden --follow --exclude ".git" . "$1"
+# }
+# export FZF_CTRL_T_OPTS="
+#   --walker-skip .git,node_modules,target
+#   --preview 'bat -n --color=always {}'
+#   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+# export FZF_CTRL_R_OPTS="
+#   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+#   --color header:italic
+#   --header 'Press CTRL-Y to copy command into clipboard'"
+# export FZF_ALT_C_OPTS="
+#   --walker-skip .git,node_modules,target
+#   --bind 'ctrl-/:change-preview-window(down|hidden|)'
+#   --preview 'tree -C {}'"
+
 export UV_TOOL_BIN_DIR="$HOME/bin"
 
 ## fzf-tab specific
@@ -95,9 +97,9 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # DISABLE_AUTO_TITLE="true"
 HIST_STAMPS="yyyy-mm-dd"
 
-alias ls="ls -FG"
-alias ll='ls -lh'
-alias lla='ls -lah'
+# alias ls="ls -FG"
+# alias ll='ls -lh'
+ alias lla='ls -lah'
 alias epar='env_parallel'
 alias tryepar='env_parallel --dry-run'
 alias par='parallel'
@@ -134,7 +136,7 @@ function emagit() { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-i
 alias magit=emagit
 alias dired=edired
 
-function mkcd () { mkdir -p -- "$1" && cd -P -- "$1" }
+# function mkcd () { mkdir -p -- "$1" && cd -P -- "$1" } # comes from zim module
 
 HISTORY_SUBSTRING_SEARCH_FUZZY=1
 bindkey -M emacs '^P' history-substring-search-up
@@ -147,5 +149,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+path+=($(go env GOPATH) "$HOME/.antigravity/antigravity/bin" "$HOME/.jetski/jetski/bin")
+export GOPATH=$(go env GOPATH)
 
 source ~/.p10k.zsh

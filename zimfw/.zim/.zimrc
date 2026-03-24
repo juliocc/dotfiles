@@ -1,32 +1,38 @@
+#zmodule homebrew # PATH set in .zprofile, this just brings aliases
 
 zmodule input
 zmodule utility
 zmodule fzf
 zmodule run-help
+zmodule exa
+zmodule smite
+#zmodule k
+#zmodule pvenv
+zmodule completion
 zmodule kiesman99/zim-zoxide
 
-if [[ -d /opt/homebrew/share/zsh ]] && [[ $(uname) == Darwin ]] ; then
-    zmodule /opt/homebrew/share/zsh/site-functions --fpath .
-fi
 zmodule zsh-users/zsh-completions --fpath src
-zmodule completion
-if [[ -d "$HOME/google-cloud-sdk" ]]; then
-   zmodule $HOME/google-cloud-sdk --source completion.zsh.inc
-fi
 
 zmodule ohmyzsh/ohmyzsh --root plugins/colored-man-pages
-#zmodule ohmyzsh/ohmyzsh --root plugins/macos
+zmodule ohmyzsh/ohmyzsh --root plugins/macos
 zmodule ohmyzsh/ohmyzsh --root plugins/emacs
 zmodule ohmyzsh/ohmyzsh --root plugins/safe-paste
+zmodule ohmyzsh/ohmyzsh --source lib/clipboard.zsh
 zmodule ohmyzsh/ohmyzsh --root plugins/copybuffer
 zmodule ohmyzsh/ohmyzsh --root plugins/copypath
 zmodule ohmyzsh/ohmyzsh --root plugins/copyfile
 zmodule ohmyzsh/ohmyzsh --root plugins/dirpersist
-
+#zmodule ohmyzsh/ohmyzsh --root plugins/dircycle
+zmodule ohmyzsh/ohmyzsh --root plugins/man
 zmodule Aloxaf/fzf-tab
+
+if [[ -d "$HOME/google-cloud-sdk" ]]; then
+   zmodule $HOME/google-cloud-sdk --source completion.zsh.inc
+fi
 
 zmodule romkatv/powerlevel10k
 #zmodule joke/zim-starship
 
 zmodule zsh-users/zsh-syntax-highlighting
 #zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-history-substring-search
