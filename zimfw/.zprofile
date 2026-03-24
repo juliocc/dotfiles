@@ -1,2 +1,2 @@
 export HOMEBREW_NO_ANALYTICS=1
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
