@@ -1,2 +1,6 @@
 skip_global_compinit=1
-path=($HOME/bin $HOME/google-cloud-sdk/bin $path)
+
+path_add() { [[ -d "$1" ]] && path=("$1" $path) }
+
+path_add "$HOME/bin"
+path_add "$HOME/google-cloud-sdk/bin"

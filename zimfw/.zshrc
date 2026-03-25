@@ -151,7 +151,16 @@ export NVM_DIR="$HOME/.nvm"
 
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
-path+=($(go env GOPATH) "$HOME/.antigravity/antigravity/bin" "$HOME/.jetski/jetski/bin")
-export GOPATH=$(go env GOPATH)
+if (( $+commands[go] )); then
+  export GOPATH=$(go env GOPATH)
+  path_add "$GOPATH/bin"
+fi
+
+# Custom tools
+path_add "/opt/homebrew/opt/openjdk@17/bin"
+path_add "$HOME/.antigravity/antigravity/bin"
+path_add "$HOME/.jetski/jetski/bin"
+path_add "$HOME/.local/bin"
+
 
 source ~/.p10k.zsh
