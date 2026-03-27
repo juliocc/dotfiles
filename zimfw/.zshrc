@@ -158,6 +158,9 @@ if (( $+commands[go] )); then
 fi
 path_add "/opt/homebrew/opt/openjdk@17/bin"
 
+# makes some omz (ofd, pfd, etc) tools work
+open_command () { open "$@" &>/dev/null }
+
 # Custom tools
 path_add "$HOME/google-cloud-sdk/bin"
 path_add "$HOME/.antigravity/antigravity/bin"
