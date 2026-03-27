@@ -157,10 +157,10 @@ if (( $+commands[go] )); then
 fi
 
 # Custom tools
-path_add "/opt/homebrew/opt/openjdk@17/bin"
+path_add "$HOME/google-cloud-sdk/bin"
 path_add "$HOME/.antigravity/antigravity/bin"
 path_add "$HOME/.jetski/jetski/bin"
-path_add "$HOME/.local/bin"
+path_add "/opt/homebrew/opt/openjdk@17/bin"
 
 
 source ~/.p10k.zsh
