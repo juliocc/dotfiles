@@ -151,16 +151,18 @@ export NVM_DIR="$HOME/.nvm"
 
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
+# Language toolchains
 if (( $+commands[go] )); then
   export GOPATH=$(go env GOPATH)
   path_add "$GOPATH/bin"
 fi
+path_add "/opt/homebrew/opt/openjdk@17/bin"
 
 # Custom tools
 path_add "$HOME/google-cloud-sdk/bin"
 path_add "$HOME/.antigravity/antigravity/bin"
-path_add "$HOME/.jetski/jetski/bin"
 path_add "/opt/homebrew/opt/openjdk@17/bin"
 
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 
 source ~/.p10k.zsh
