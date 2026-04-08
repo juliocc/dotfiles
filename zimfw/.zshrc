@@ -25,6 +25,7 @@ unsetopt CORRECT_ALL
 export LESS='-RX --mouse --quit-if-one-screen'
 export MANWIDTH=92
 
+HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 DIRSTACKSIZE=100
