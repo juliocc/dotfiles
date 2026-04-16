@@ -129,13 +129,35 @@ function dv {
   cd "-${d}"
 }
 
-#function e()      { $EMACS_PLUGIN_LAUNCHER --eval "(progn (select-frame-set-input-focus (selected-frame)) (find-file \"$1\"))"; }
-function ediff()  { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-input-focus (selected-frame)) (ediff-files \"$1\" \"$2\"))"; }
-function edired() { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-input-focus (selected-frame)) (dired \"$1\"))"; }
-function emagit() { $EMACS_PLUGIN_LAUNCHER -n --eval "(progn (select-frame-set-input-focus (selected-frame)) (magit-status \"$1\"))"; }
-# function ekill()  { emacsclient --eval '(save-buffers-kill-emacs)'; }
+#### Emacs helpers
+if [[ -n "$SSH_CONNECTION" ]]; then
+  # SSH mode
+  export EDITOR="emacsclient -nw -a ''"
+  EMACS_CLIENT=(emacsclient -a '' -t)
+  EMACS_FALLBACK=(emacsclient -a '' -t)
+else
+  # Local mode (Mac)
+  export EDITOR="emacsclient -a ''"
+  EMACS_CLIENT=(emacsclient -a '')
+  EMACS_FALLBACK=(emacsclient -a '' -n -c)
+fi
+
+function _e() {
+  if [ $# -eq 0 ]; then
+    "${EMACS_FALLBACK[@]}"
+  else
+    "${EMACS_CLIENT[@]}" "$@"
+  fi
+}
+
+alias emacs=_e
+function ediff()  { _e --eval "(progn (select-frame-set-input-focus (selected-frame)) (ediff-files \"$1\" \"$2\"))"; }
+function edired() { _e --eval "(progn (select-frame-set-input-focus (selected-frame)) (dired \"$1\"))"; }
+function emagit() { _e --eval "(progn (select-frame-set-input-focus (selected-frame)) (magit-status \"$1\"))"; }
 alias magit=emagit
 alias dired=edired
+# compdef e=emacsclient
+####
 
 # function mkcd () { mkdir -p -- "$1" && cd -P -- "$1" } # comes from zim module
 

@@ -16,7 +16,7 @@ zmodule zsh-users/zsh-completions --fpath src
 zmodule ohmyzsh/ohmyzsh --root plugins/colored-man-pages
 zmodule ohmyzsh/ohmyzsh --root plugins/macos
 zmodule ohmyzsh/ohmyzsh --root plugins/emacs
-zmodule ohmyzsh/ohmyzsh --root plugins/safe-paste
+#zmodule ohmyzsh/ohmyzsh --root plugins/safe-paste
 zmodule ohmyzsh/ohmyzsh --source lib/clipboard.zsh
 zmodule ohmyzsh/ohmyzsh --root plugins/copybuffer
 zmodule ohmyzsh/ohmyzsh --root plugins/copypath
