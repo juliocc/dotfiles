@@ -156,7 +156,15 @@ function edired() { _e --eval "(progn (select-frame-set-input-focus (selected-fr
 function emagit() { _e --eval "(progn (select-frame-set-input-focus (selected-frame)) (magit-status \"$1\"))"; }
 alias magit=emagit
 alias dired=edired
-# compdef e=emacsclient
+_e_completion() {
+  _arguments -S \
+    '(-n --no-wait)'{-n,--no-wait}'[Don'\''t wait for the server to return]' \
+    '(-c --create-frame)'{-c,--create-frame}'[Create a new frame]' \
+    '(-t --tty -nw)'{-t,--tty,-nw}'[Open a terminal frame]' \
+    '(-e --eval)'{-e,--eval}'[Evaluate Emacs Lisp expressions]' \
+    '*:files:_files' # This ensures files/dirs always work anywhere else
+}
+compdef _e_completion _e emacs
 ####
 
 # function mkcd () { mkdir -p -- "$1" && cd -P -- "$1" } # comes from zim module
